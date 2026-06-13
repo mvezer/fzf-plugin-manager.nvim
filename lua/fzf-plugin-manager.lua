@@ -47,4 +47,7 @@ function M.open_url(url)
 	end
 end
 
+-- register command
+vim.api.nvim_create_user_command("Plugins", M.show_plugins, {})
+
 return M

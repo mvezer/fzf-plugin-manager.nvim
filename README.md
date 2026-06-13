@@ -36,10 +36,16 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ## Usage
 
-The plugin does not register any commands or keymaps automatically. Wire up `show_plugins` yourself:
+The plugin registers a `:Plugins` command automatically on load. Run it to open the picker:
+
+```
+:Plugins
+```
+
+You can also bind it to a keymap:
 
 ```lua
-vim.keymap.set("n", "<leader>pm", require("fzf-plugin-manager").show_plugins, { desc = "Plugin manager" })
+vim.keymap.set("n", "<leader>pm", "<cmd>Plugins<cr>", { desc = "Plugin manager" })
 ```
 
 ### Picker keybindings
