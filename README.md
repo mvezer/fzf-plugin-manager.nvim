@@ -15,6 +15,7 @@ A fuzzy-finder UI for Neovim 0.12+'s native built-in package manager (`vim.pack`
 - Open the plugin's source URL in your browser with `<Enter>`
 - Cross-platform URL opener (macOS, Linux, Windows)
 - Update all plugins at once with `:UpdateAllPlugins`
+- Notifies on plugin install, update, and removal via the `PackChanged` autocmd
 
 ## Install
 

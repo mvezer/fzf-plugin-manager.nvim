@@ -11,6 +11,17 @@ local function get_all_plugin_names()
 	return plugins_names
 end
 
+local function on_pack_changed(pack_changed_event)
+	local name, kind = pack_changed_event.data.spec.name, pack_changed_event.data.kind
+	if kind == "remove" then
+		vim.notify("Plugin " .. name .. " was removed", vim.log.levels.INFO)
+	elseif kind == "install" then
+		vim.notify("Plugin " .. name .. " was installed", vim.log.levels.INFO)
+	elseif kind == "update" then
+		vim.notify("Plugin " .. name .. " was updated", vim.log.levels.INFO)
+	end
+end
+
 function M.update_all_plugins()
 	vim.pack.update(get_all_plugin_names())
 end
@@ -60,5 +71,7 @@ end
 vim.api.nvim_create_user_command("Plugins", M.show_plugins, {})
 
 vim.api.nvim_create_user_command("UpdateAllPlugins", M.update_all_plugins, {})
+
+vim.api.nvim_create_autocmd("PackChanged", { callback = on_pack_changed })
 
 return M
