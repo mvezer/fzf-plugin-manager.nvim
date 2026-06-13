@@ -12,7 +12,7 @@ function M.show_plugins()
 		return
 	end
 	fzf.fzf_exec(plugin_names, {
-		prompt = "Plugins (<C-S-U>: update, <C-S-D>: delete): ",
+		prompt = "Plugins (<enter>: open plugin url, <ctrl-u>: update, <ctrl-d>: delete): ",
 		actions = {
 			["default"] = function(selected_plugin)
 				local plugin_specs = vim.pack.get(selected_plugin)
@@ -24,10 +24,10 @@ function M.show_plugins()
 					M.open_url(url)
 				end
 			end,
-			["ctrl-s-u"] = function(selected_plugin)
+			["ctrl-u"] = function(selected_plugin)
 				vim.pack.update(selected_plugin)
 			end,
-			["ctrl-s-d"] = function(selected_plugin)
+			["ctrl-d"] = function(selected_plugin)
 				vim.pack.del(selected_plugin)
 			end,
 		},

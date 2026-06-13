@@ -10,8 +10,8 @@ A fuzzy-finder UI for Neovim 0.12+'s native built-in package manager (`vim.pack`
 ## Features
 
 - List all plugins installed via Neovim's native package manager
-- Update a plugin in-place with `<C-S-U>`
-- Delete a plugin with `<C-S-D>`
+- Update a plugin in-place with `<C-U>`
+- Delete a plugin with `<C-D>`
 - Open the plugin's source URL in your browser with `<Enter>`
 - Cross-platform URL opener (macOS, Linux, Windows)
 
@@ -42,6 +42,11 @@ The plugin registers a `:Plugins` command automatically on load. Run it to open 
 :Plugins
 ```
 
+or call it directly from lua:
+```lua
+`require("fzf-plugin-manager").show_plugins()`
+```
+
 You can also bind it to a keymap:
 
 ```lua
@@ -53,8 +58,8 @@ vim.keymap.set("n", "<leader>pm", "<cmd>Plugins<cr>", { desc = "Plugin manager" 
 | Key | Action |
 |-----|--------|
 | `<Enter>` | Open the selected plugin's source URL in the browser |
-| `<C-S-U>` | Update the selected plugin |
-| `<C-S-D>` | Delete the selected plugin |
+| `<C-U>` | Update the selected plugin |
+| `<C-D>` | Delete the selected plugin |
 
 ## API
 
