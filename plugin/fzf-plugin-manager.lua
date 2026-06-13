@@ -1,17 +1,27 @@
 local M = {}
 
-function M.show_plugins()
-	local plugin_info = vim.pack.get()
-	local plugin_names = {}
-	for _, plugin in ipairs(plugin_info) do
-		table.insert(plugin_names, plugin.spec.name)
+local get_all_plugins = function()
+	local plugins = {}
+	for _, plugin in ipairs(vim.api.nvim_list_runtime_paths()) do
+		local plugin_name = vim.fn.fnamemodify(plugin, ":t")
+		if plugin_name ~= "packer.nvim" then
+			table.insert(plugins, plugin_name)
+		end
 	end
+	return plugins
+end
+
+function M.update_all_plugins()
+	vim.pack.update(get_all_plugins())
+end
+
+function M.show_plugins()
 	local ok, fzf = pcall(require, "fzf-lua")
 	if not ok then
 		vim.notify("fzf-lua is not installed", vim.log.levels.ERROR)
 		return
 	end
-	fzf.fzf_exec(plugin_names, {
+	fzf.fzf_exec(get_all_plugins(), {
 		prompt = "Plugins (<enter>: open plugin url, <ctrl-u>: update, <ctrl-d>: delete): ",
 		actions = {
 			["default"] = function(selected_plugin)
@@ -48,5 +58,7 @@ function M.open_url(url)
 end
 
 vim.api.nvim_create_user_command("Plugins", M.show_plugins, {})
+
+vim.api.nvim_create_user_command("UpdateAllPlugins", M.update_all_plugins, {})
 
 return M
