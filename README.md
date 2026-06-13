@@ -9,11 +9,12 @@ A fuzzy-finder UI for Neovim 0.12+'s native built-in package manager (`vim.pack`
 
 ## Features
 
-- List all plugins installed via Neovim's native package manager
+- List all active plugins installed via Neovim's native package manager
 - Update a plugin in-place with `<C-U>`
 - Delete a plugin with `<C-D>`
 - Open the plugin's source URL in your browser with `<Enter>`
 - Cross-platform URL opener (macOS, Linux, Windows)
+- Update all plugins at once with `:UpdateAllPlugins`
 
 ## Install
 
@@ -36,18 +37,14 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ## Usage
 
-The plugin registers a `:Plugins` command automatically on load. Run it to open the picker:
+The plugin registers two commands automatically on load.
 
-```
-:Plugins
-```
+| Command | Description |
+|---------|-------------|
+| `:Plugins` | Open the fzf picker to browse, update, or delete plugins |
+| `:UpdateAllPlugins` | Update all active plugins at once |
 
-or call it directly from lua:
-```lua
-`require("fzf-plugin-manager").show_plugins()`
-```
-
-You can also bind it to a keymap:
+You can bind `:Plugins` to a keymap:
 
 ```lua
 vim.keymap.set("n", "<leader>pm", "<cmd>Plugins<cr>", { desc = "Plugin manager" })
@@ -65,5 +62,9 @@ vim.keymap.set("n", "<leader>pm", "<cmd>Plugins<cr>", { desc = "Plugin manager" 
 
 ### `require("fzf-plugin-manager").show_plugins()`
 
-Opens the fzf-lua picker listing all plugins known to `vim.pack.get()`.
+Opens the fzf-lua picker listing all active plugins.
+
+### `require("fzf-plugin-manager").update_all_plugins()`
+
+Updates all active plugins via `vim.pack.update()`.
 
